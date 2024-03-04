@@ -10,11 +10,24 @@ namespace fractals
     {
         public static void Main()
         {
-            Bitmap bmp = new Bitmap(1080, 720);
-            Fractal fractal = new Fractal(bmp, 69, 12, 42);
+            Console.WriteLine("Input the number of fractal:");
+            int n = int.Parse(Console.ReadLine());
+
+            Bitmap bmp = new Bitmap(2160, 1440);
+
+            Random rnd = new Random();
+
+            Fractal fractal = new Fractal(bmp, 2, 5, 6, 2);
             Bitmap bmp2 = fractal.Image;
-            bmp2.Save(Environment.CurrentDirectory.ToString() + "fractal1.jpg");
-            Process.Start(Environment.CurrentDirectory.ToString() + "fractal1.jpg");
+
+            string workingDirectory = Environment.CurrentDirectory.ToString();
+            string fractalDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName + @$"\fractal{n}.jpg";
+
+            bmp2.Save(fractalDirectory);
+
+            var p = new Process();
+            p.StartInfo = new ProcessStartInfo(fractalDirectory) { UseShellExecute = true };
+            p.Start();
         }
     }
 }
