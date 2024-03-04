@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
-
+using System.Linq;
 
 namespace fractals
 {
@@ -13,18 +13,27 @@ namespace fractals
 
         int height;
 
+        public static int R { get; set; }
+
+        public static int B { get; set; }
+
+        public static int G { get; set; }
+
         const double CReal = -0.71;
 
         const double CImaginary = 0.25015;
         public static Color[] Colors => Enumerable.Range(0, 256)
-            .Select(c => Color.FromArgb((c & 3) * 85 % 256, (c >> 7) * 36 % 256, (c >> 3 & 5) * 36 % 256))
+            .Select(c => Color.FromArgb((c & R) * 85 % 256, (c >> G) * 36 % 256, (c >> R & B) * 36 % 256))
             .ToArray();
 
-        public Fractal(Bitmap image)
+        public Fractal(Bitmap image, int r, int g, int b)
         {
             this.Image = image;
             width = image.Width;
             height = image.Height;
+            R = r;
+            G = g;
+            B = b;
             Draw(Image);
         }
 
