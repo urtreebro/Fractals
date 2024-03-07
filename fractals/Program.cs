@@ -10,18 +10,18 @@ namespace fractals
     {
         public static void Main()
         {
-            Console.WriteLine("Input the number of fractal:");
-            int n = int.Parse(Console.ReadLine());
+            Console.WriteLine("Input name of the fractal:");
+            string name = Console.ReadLine();
 
-            Bitmap bmp = new Bitmap(2160, 1440);
+            Bitmap bmp = new Bitmap(2400, 1600);
 
             Random rnd = new Random();
 
-            Fractal fractal = new Fractal(bmp, 2, 5, 6, 2);
+            Fractal fractal = new Fractal(bmp, 2, 36, 63, 2);
             Bitmap bmp2 = fractal.Image;
 
             string workingDirectory = Environment.CurrentDirectory.ToString();
-            string fractalDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName + @$"\fractal{n}.jpg";
+            string fractalDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName + @$"\images\{name}.jpg";
 
             bmp2.Save(fractalDirectory);
 

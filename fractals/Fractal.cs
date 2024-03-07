@@ -7,7 +7,7 @@ namespace fractals
 {
     public class Fractal
     {
-        public Bitmap Image {  get; set; }
+        public Bitmap Image { get; set; }
 
         private int width;
 
@@ -23,6 +23,13 @@ namespace fractals
         const double CReal = -0.71;
 
         const double CImaginary = 0.25015;
+
+        private int iter;
+
+        private double zX;
+        private double zY;
+
+        private double temp; 
 
         public static Color[] Colors => Enumerable.Range(0, 256)
             .Select(c => Color.FromArgb((c & R) * 85 % 256, (c >> G) * 36 % 256, (c >> R & B) * 36 % 256))
@@ -46,15 +53,6 @@ namespace fractals
 
         public Bitmap Draw(Bitmap bmp)
         {
-            int iter;
-
-            double zX;
-            double zY;
-
-            double temp;
-
-            int[,] image_colors = new int[width, height];
-
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
@@ -73,15 +71,7 @@ namespace fractals
                         iter--;
                     }
 
-                    image_colors[x, y] = iter;
-                }
-            }
-
-            for (int x = 0; x < width; x++)
-            {
-                for (int y = 0; y < height; y++)
-                {
-                    Color color = Colors[image_colors[x,y]];
+                    Color color = Colors[iter];
 
                     bmp.SetPixel(x, y, color);
                 }
