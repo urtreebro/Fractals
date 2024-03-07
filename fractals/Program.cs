@@ -17,13 +17,13 @@ namespace fractals
 
             Random rnd = new Random();
 
-            Fractal fractal = new Fractal(bmp, 2, 36, 63, 2);
-            Bitmap bmp2 = fractal.Image;
+            JuliaFractal fractal = new JuliaFractal(bmp, 1, 1, 1, 1);
+            fractal.Draw();
 
             string workingDirectory = Environment.CurrentDirectory.ToString();
             string fractalDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName + @$"\images\{name}.jpg";
 
-            bmp2.Save(fractalDirectory);
+            fractal.Image.Save(fractalDirectory);
 
             var p = new Process();
             p.StartInfo = new ProcessStartInfo(fractalDirectory) { UseShellExecute = true };

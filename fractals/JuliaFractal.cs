@@ -1,19 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace fractals
 {
-    public class Fractal
-    {
-        public Bitmap Image { get; set; }
-
-        private int width;
-
-        private int height;
-
-        private int zoom;
+    public class JuliaFractal : FractalBase
+    { 
         public static int R { get; set; }
 
         public static int B { get; set; }
@@ -29,29 +24,20 @@ namespace fractals
         private double zX;
         private double zY;
 
-        private double temp; 
+        private double temp;
 
         public static Color[] Colors => Enumerable.Range(0, 256)
             .Select(c => Color.FromArgb((c & R) * 85 % 256, (c >> G) * 36 % 256, (c >> R & B) * 36 % 256))
             .ToArray();
 
-        public Fractal(Bitmap image, int r, int g, int b, int zoom = 1)
+        public JuliaFractal(Bitmap image, int r, int g, int b, int zoom = 1) : base(image, zoom)
         {
-            this.Image = image;
-
-            width = image.Width;
-            height = image.Height;
-
             R = r;
             G = g;
             B = b;
-
-            this.zoom = zoom;
-
-            Draw(Image);       
         }
 
-        public Bitmap Draw(Bitmap bmp)
+        public override Bitmap Draw()
         {
             for (int x = 0; x < width; x++)
             {
@@ -73,11 +59,10 @@ namespace fractals
 
                     Color color = Colors[iter];
 
-                    bmp.SetPixel(x, y, color);
+                    Image.SetPixel(x, y, color);
                 }
             }
-
-            return bmp;
+            return Image;
         }
     }
 }
