@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace fractals
 {
-    public abstract class FractalBase
+    public abstract class ImageBase
     {
-        public Bitmap Image { get; set; }
+        public Bitmap Image { get; private set; }
 
         protected int width;
 
@@ -15,7 +15,7 @@ namespace fractals
 
         protected int zoom;
 
-        public FractalBase(Bitmap image, int zoom = 1)
+        public ImageBase(Bitmap image, int r, int g, int b, int zoom = 1)
         {
             Image = image;
 
@@ -23,6 +23,8 @@ namespace fractals
             height = image.Height;
 
             this.zoom = zoom;
+
+            ColorsProvider.R = r; ColorsProvider.G = g; ColorsProvider.B = b;
         }
 
         public abstract Bitmap Draw();
